@@ -10,7 +10,7 @@ import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-
+import com.toptal.webpages.homePage;
 
 public class addingFavoriteControl {
     public static WebDriver driver;
@@ -19,41 +19,23 @@ public class addingFavoriteControl {
     public void setup(){
 
         String baseUrl = "https://www.n11.com/ ";
-        System.setProperty("webdriver.chrome.driver","/Users/testinium/Downloads/myprojectaboutoptim/src/main/resources/chromedriver");
+        System.setProperty("webdriver.chrome.driver","src/main/resources/chromedriver");
         ChromeOptions options = new ChromeOptions();
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         driver.get(baseUrl);
+
     }
 
     @Test
-    public void applyAsDeveloper() {
-
-        //loginPage Inıtialized etme
-        loginPage loginPage= new loginPage(driver);
-
-        //Check if page is opened
-        Assert.assertTrue(loginPage.isPageOpened());
-
-        //Click on Join Toptal
-        loginPage.clikOnJoin();
-
-
-
-
-        //facebookAutPage Inıtialized etme
-        facebookAutPage facebookAutPage =new facebookAutPage(driver);
-
-        //Check if page is opened
-        Assert.assertTrue(facebookAutPage.isPageOpened());
-
-        //Fill up data
-        //facebookAutPage.setDeveloper_email("dejan@toptal.com");
-        facebookAutPage.setDeveloper_full_name("Dejan Zivanovic Automated Test");
-        facebookAutPage.setDeveloper_password("password123");
-        facebookAutPage.setDeveloper_password_confirmation("password123");
-        facebookAutPage.setDeveloper_skype("automated_test_skype");
-
+    public void login() throws InterruptedException {
+        loginPage loginPage =new loginPage(driver);
+        homePage homePage = new homePage(driver);
+       // loginPage.facebookIleGirisYap();
+        homePage.closeHomePagePopUp();
+        homePage.HomePageControl();
+        homePage.search("samsung");
+        homePage.secontPage();
     }
 
     @After
