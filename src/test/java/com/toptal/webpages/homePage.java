@@ -30,7 +30,17 @@ public class homePage {
   @FindBy(xpath = "//*[@class=\"pagination\"]//*[.='2']")
   private WebElement secontPage;
 
-  @FindBy(xpath = "(//*[@id=\"view\"]//*[@class=\"clearfix\"]//*[@class=\"column \"])[3]")
+  @FindBy(xpath = "//*[@class=\"pagination\"]//*[@class=\"active \"]")
+  private WebElement secontPageCheck;
+
+  @FindBy(
+      xpath =
+          "(//*[@id=\"view\"]//*[@class=\"clearfix\"]//*[@class=\"column \"])[3]//*[@class=\"pro\"]//*[@class=\"productName \" or @class=\"productName bold\"]")
+  private WebElement produckName;
+
+  @FindBy(
+      xpath =
+          "(//*[@id=\"view\"]//*[@class=\"clearfix\"]//*[@class=\"column \"])[3]//*[@class=\"pro\"]//*[@class=\"plink\"]")
   private WebElement thirdElement;
 
     @FindBy(xpath = "")
@@ -53,21 +63,34 @@ public class homePage {
     public void enterLoginPage(){
         loginBtn.click();
     }
-    public void search(String text){
+    public void search(String text) throws InterruptedException {
         searchBar.sendKeys(text);
         searchBtn.click();
+        Thread.sleep(3000);
+
+
     }
     public void HomePageControl(){
         loginBtn.isDisplayed();
     }
     public void secontPage() throws InterruptedException {
-        Thread.sleep(6000);
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0,5000)");
         secontPage.click();
         Thread.sleep(2000);
+        if(!secontPageCheck.getText().contains("2")){
+            System.out.println(produckName.getText());
+            Assert.fail("2. Sayfa açılamadı");
+        }
 
+    }
+    public void selectThirtResult(){
+        if(!produckName.getText().contains("Samsung")){
+            System.out.println(produckName.getText());
+            Assert.fail("sayfada Samsung ürünü bulunamadı");
+        }
         thirdElement.click();
+
     }
 
 

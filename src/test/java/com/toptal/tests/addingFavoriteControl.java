@@ -3,6 +3,7 @@ package com.toptal.tests;
 import com.toptal.webpages.facebookAutPage;
 import com.toptal.webpages.loginPage;
 
+import com.toptal.webpages.productPage;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -31,16 +32,21 @@ public class addingFavoriteControl {
     public void login() throws InterruptedException {
         loginPage loginPage =new loginPage(driver);
         homePage homePage = new homePage(driver);
-       // loginPage.facebookIleGirisYap();
-        homePage.closeHomePagePopUp();
+        productPage productPage = new productPage(driver);
+
+        loginPage.facebookIleGirisYap();
         homePage.HomePageControl();
         homePage.search("samsung");
         homePage.secontPage();
+        homePage.selectThirtResult();
+        productPage.addBasket();
+        productPage.goBasket();
+        productPage.deleteProduck();
     }
 
     @After
     public void close(){
-        //driver.close();
+        driver.close();
     }
 }
 
